@@ -1,0 +1,46 @@
+runConfig:
+  runtime: nodejs20
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 80
+
+env:
+  # Public variables — safe to set as plain values after replacing placeholders
+  - variable: NEXTAUTH_URL
+    value: https://YOUR_DOMAIN.com
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+    value: pk_live_YOUR_STRIPE_PUBLISHABLE_KEY
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Secret variables — store these in Google Secret Manager
+  # Run: firebase apphosting:secrets:set <secret-name>
+  - variable: OPENROUTER_API_KEY
+    secret: openrouter-api-key
+    availability:
+      - RUNTIME
+
+  - variable: STRIPE_SECRET_KEY
+    secret: stripe-secret-key
+    availability:
+      - RUNTIME
+
+  - variable: GOOGLE_CLIENT_ID
+    secret: google-client-id
+    availability:
+      - RUNTIME
+
+  - variable: GOOGLE_CLIENT_SECRET
+    secret: google-client-secret
+    availability:
+      - RUNTIME
+
+  - variable: NEXTAUTH_SECRET
+    secret: nextauth-secret
+    availability:
+      - RUNTIME
